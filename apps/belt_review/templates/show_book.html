@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  <body>
+      <div class="container">
+        <nav class="navbar navbar-light bg-faded">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="/logout">Logout</a>
+                </li>
+            </ul>
+        </nav>    
+        <h3>{{book.title}}</h3>
+        <h4>Author: {{book.author.name}}</h4>
+        <div class="modal-body row">
+            <div class="col-md-6">
+                <h5>Reviews:</h5>
+                {% for review in reviews %}
+                <!-- reviews is the review under this book, becuase we filter -->
+                    <p>{{review.id}}</p>
+                    <p>{{review.rating}}</p>
+                    <p>{{review.comment}}</p>
+                    <p><a href="users/{{review.reviewer.id}}">{{review.reviewer.name}}</a>-{{review.created_at}}</p>
+                    {% if review.reviewer.id == request.session.userid %}
+                    <a href="/delete/{{review.id}}">Delete</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="col-md-6">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %} 
+                {% endif %}
+                <form action='/books/{{book.id}}/create' method='POST'>
+                    {% csrf_token %}
+                    <label>Add a Review:</label>
+                    <textarea type="text" name="comment" id="comment" class="form-control"></textarea>
+                    <br>
+                    <label for="rating">Rating:</label>
+                    <select class="selectpicker" name="rating">
+                        <option value="5"> 5 </option>
+                        <option value="4"> 4 </option>
+                        <option value="3"> 3 </option>
+                        <option value="2"> 2 </option>
+                        <option value="1"> 1 </option>
+                    </select>
+                    <br>
+                    <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Submit Review</button>
+                </form>
+            </div>
+        </div>
+      </div>
+  </body>
+</html>

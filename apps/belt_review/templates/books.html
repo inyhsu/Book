@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-light bg-faded">
+            <li class="nav-item" style="list-style-type:none">
+                <span class="navbar-text">
+                    Welcome {{users.alias}}!
+                </span>
+            </li>   
+            <li class="nav-item" style="list-style-type:none">
+                <span style='margrin-left:60%'><a href="/books/add">Add Book and Review</a></span>
+            </li>
+            <li class="nav-item" style="list-style-type:none">
+                <a href="/logout">Logout</a>
+            </li>
+    </nav>
+    <div class="container">
+        <h3>Recent Book Review:</h3>
+        {% for review in reviews %}
+            <p><a href="books/{{review.reviewedbook.id}}">{{review.reviewedbook.title}}</a></p>
+            <!-- This is book id -->
+            <p>{{review.rating}}</p>
+            <p>{{review.comment}}</p>
+            <p><a href="users/{{review.reviewer.id}}">{{review.reviewer.name}}</a>-{{review.created_at}}</p>
+        {% endfor %}
+
+
+    </div>
+  </body>
+</html>
