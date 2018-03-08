@@ -10,61 +10,74 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body>
+    <div class="bg">
+        <div class="container">
 
-    <nav class="navbar navbar-light bg-faded">
-        <li class="nav-item" style="list-style-type:none">
-            <a href="/books">Home</a>
-        </li>
-        <li class="nav-item" style="list-style-type:none">
-            <a href="/logout">Logout</a>
-        </li>
-    </nav>
-    <div class="container">
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-danger" role="alert">
-                {{ message }}
+            <nav class="navbar navbar-light bg-faded">
+                <li class="nav-item" style="list-style-type:none">
+                    <a href="/books">Home</a>
+                </li>
+                <li class="nav-item" style="list-style-type:none">
+                    <a href="/logout">Logout</a>
+                </li>
+            </nav>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %} 
+                {% endif %}
+                <div class="main">
+                    <h3>Add a New Book Title and a Review</h3>
+                    <div class="form-group">
+                        <form action='../books/add_book' method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label for="title"><h5>Book Title:</h5></label>
+                            <input type="text" name="title" id="title" class="form-control"><br>
+                            <label for="author"><h5>Author:</h5></label>
+                            <p>Choose from the list:</p>
+                            <select class="selectpicker" name="author">
+                                <option value=''></option>
+                                {% for a in author%}
+                                <option value='{{a.name}}'>{{a.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <p>Or add a new author:</p>
+                            <input type="text" name="newauthor" id="author" class="form-control"><br>
+                            <label for="comment"><h5>Review:</h5></label>
+                            <textarea type="text" name="comment" id="comment" class="form-control"></textarea>
+                            <br>
+                            <label for="rating"><h5>Rating:</h5></label>
+                            <select class="selectpicker" name="rating">
+                                <option value="5"> 5 </option>
+                                <option value="4"> 4 </option>
+                                <option value="3"> 3 </option>
+                                <option value="2"> 2 </option>
+                                <option value="1"> 1 </option>
+                            </select>
+                            <br>
+                            <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Add Book and Reviews</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            {% endfor %} 
-        {% endif %}
-
-            <h3>Add a New Book Title and a Review</h3>
-            <div class="form-group">
-                <form action='../books/add_book' method="POST">
-                    {% csrf_token %}
-                    <label for="title">Book Title:</label>
-                    <input type="text" name="title" id="title" class="form-control">
-                    <label for="author">Author:</label>
-                    <p>Choose from the list:</p>
-                    <select class="selectpicker" name="author">
-                        <option value=''></option>
-                        {% for a in author%}
-                        <option value='{{a.name}}'>{{a.name}}</option>
-                        {% endfor %}
-                    </select>
-                    <p>Or add a new author:</p>
-                    <input type="text" name="newauthor" id="author" class="form-control">
-                    <label for="comment">Review:</label>
-                    <textarea type="text" name="comment" id="comment" class="form-control"></textarea>
-                    <br>
-                    <label for="rating">Rating:</label>
-                    <select class="selectpicker" name="rating">
-                        <option value="5"> 5 </option>
-                        <option value="4"> 4 </option>
-                        <option value="3"> 3 </option>
-                        <option value="2"> 2 </option>
-                        <option value="1"> 1 </option>
-                    </select>
-                    <br>
-                    <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Add Book and Reviews</button>
-                </form>
-            </div>
-
-    </div>
+        </div>
 </body>
 
 </html>

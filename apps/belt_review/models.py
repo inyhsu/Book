@@ -3,6 +3,8 @@ from django.db import models
 import re
 import bcrypt
 from datetime import datetime, timedelta
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
@@ -38,11 +40,11 @@ class UserManager(models.Manager):
         if postData['password'] == '':
             errors['password'] = 'Password can not be blank.'
         else:
-            if len(postData['password']) < 2:
+            if len(postData['password']) < 8:
                 errors['password'] = 'Password can not be less than 8 characters.'
             else:
-                # if not PASSWORD_REGEX.match(postData['password']):
-                #     errors['password'] = 'Please input valid password.'
+                if not PASSWORD_REGEX.match(postData['password']):
+                    errors['password'] = 'Please input valid password.'
                 if postData['password'] != postData['cpassword']:
                     errors['password'] = 'Password does not match.'
 
@@ -73,7 +75,7 @@ class UserManager(models.Manager):
         return (False, errors)
 
 class BookManager(models.Manager):
-    def book_validator(self, postData, id):
+    def book_validator(self, postData, id, image):
         errors = {}
 
         if postData['title']=="":

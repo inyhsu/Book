@@ -1,39 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  </head>
-  <body>
-    <nav class="navbar navbar-light bg-faded">
-            <li class="nav-item" style="list-style-type:none">
-                <span class="navbar-text">
-                    Welcome {{users.alias}}!
-                </span>
-            </li>   
-            <li class="nav-item" style="list-style-type:none">
-                <span style='margrin-left:60%'><a href="/books/add">Add Book and Review</a></span>
-            </li>
-            <li class="nav-item" style="list-style-type:none">
-                <a href="/logout">Logout</a>
-            </li>
-    </nav>
-    <div class="container">
-        <h3>Recent Book Review:</h3>
-        {% for review in reviews %}
-            <p><a href="books/{{review.reviewedbook.id}}">{{review.reviewedbook.title}}</a></p>
-            <!-- This is book id -->
-            <p>{{review.rating}}</p>
-            <p>{{review.comment}}</p>
-            <p><a href="users/{{review.reviewer.id}}">{{review.reviewer.name}}</a>-{{review.created_at}}</p>
-        {% endfor %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
 
+    {% load static %}
 
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="bg">
+        <div class="container">
+            <nav class="navbar navbar-light bg-faded">
+                <li class="nav-item" style="list-style-type:none">
+                    <span class="navbar-text">
+                        Welcome {{users.alias}}!
+                    </span>
+                </li>
+                <li class="nav-item" style="list-style-type:none">
+                    <span style='margrin-left:60%'>
+                        <a href="/books/add">Add Book and Review</a>
+                    </span>
+                </li>
+                <li class="nav-item" style="list-style-type:none">
+                    <a href="/logout">Logout</a>
+                </li>
+            </nav>
+            <div class="main">
+                <h3>Recent Book Review:</h3>
+                {% for review in reviews %}
+                <div class="review">
+                    <p>
+                        <h5><a href="books/{{review.reviewedbook.id}}">{{review.reviewedbook.title}}</a></h5>
+                    </p>
+                    <!-- This is book id -->
+                    <div class="content">
+                        <p>Rating: {{review.rating}}</p>
+                        <p>{{review.comment}}</p>
+                        <p>
+                            <a href="users/{{review.reviewer.id}}">{{review.reviewer.name}}</a>-{{review.created_at}}</p>
+                            <!-- {% if review.reviewer.id != users.id %}
+                            <a href="/chat/">Chat with me</a>
+                            {% endif%}  -->
+                    </div>
+                </div>    
+                {% endfor %}
+                
+            </div>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>

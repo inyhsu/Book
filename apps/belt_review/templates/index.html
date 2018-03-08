@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Books Review</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,10 +10,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
         crossorigin="anonymous">
+
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
 </head>
 
 <body>
     <div class="container">
+
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -22,38 +27,44 @@
             </div>
             {% endfor %} 
         {% endif %}
-
-            <h1>Registration</h1>
-            <div class="form-group">
-                <form action='/register' method="POST">
-                    {% csrf_token %}
-                    <label for="name">Name</label>
-                    <input type="text" name="name" id="name" class="form-control">
-                    <label for="last_name">Alias</label>
-                    <input type="text" name="alias" id="alias" class="form-control">
-                    <label for="email">Email</label>
-                    <input type="text" name="email" id="email" class="form-control">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" class="form-control">
-                    <p>Password should be at least 8 characters</p>
-                    <label for="cpassword">Confirm password</label>
-                    <input type="password" name="cpassword" id="cpassword" class="form-control"><br>
-                    <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Register</button>
-                </form>
+        <div class="background">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Registration</h1>
+                    <div class="form-group">
+                        <form action='/register' method="POST">
+                            {% csrf_token %}
+                            <label for="name">Name</label>
+                            <input type="text" name="name" id="name" class="form-control">
+                            <label for="last_name">Alias</label>
+                            <input type="text" name="alias" id="alias" class="form-control">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" id="email" class="form-control">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control">
+                            <p>Password should be at least 8 characters</p>
+                            <label for="cpassword">Confirm password</label>
+                            <input type="password" name="cpassword" id="cpassword" class="form-control"><br>
+                            <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Register</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h1>Login</h1>
+                    <div class="form-group">
+                        <form action='/login' method="POST">
+                            {% csrf_token %}
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" name="email" id="email">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password">
+                            <br>
+                            <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Login</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <h1>Login</h1>
-            <div class="form-group">
-                <form action='/login' method="POST">
-                    {% csrf_token %}
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" name="email" id="email">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
-                    <br>
-                    <button type="submit" name="register" id="register" class="btn btn-primary" role="button">Login</button>
-                </form>
-            </div>
+        </div>
     </div>
 
 </body>

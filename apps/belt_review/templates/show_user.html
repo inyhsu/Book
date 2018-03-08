@@ -1,41 +1,57 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Title</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  </head>
-  <body>
-    <div class ='container'>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/books">Home</a>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous"> {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="bg">
+        <div class='container'>
+            <nav class="navbar navbar-light bg-faded">
+                <li class="nav-item" style="list-style-type:none">
+                    <a href="/books">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/books/add">Add Book and Review</a>
+                <li class="nav-item" style="list-style-type:none">
+                    <a href="/books/add">Add Books and Review</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Logout</a>
+                <li class="nav-item" style="list-style-type:none">
+                    <a href="/logout">Logout</a>
                 </li>
-            </ul>
-        </nav> 
-        <br>
-        <p>User Alias: {{user.alias}}</p>
-        <p>Name: {{user.name}}</p>
-        <p>Email: {{user.email}}</p>
-        <p>Total Reviews:{{review_count}}</p>
+            </nav>
+            <br>
+            <div class="main">
+                <h3>User Info</h3>
+                <h4>❋ User Alias:</h4> <p>{{user.alias}}</p>
+                <h4>❋ Name:</h4> <p>{{user.name}}</p>
+                <h4>❋ Email:</h4> <p>{{user.email}}</p>
+                <h4>❋ Total Reviews:</h4><p>{{review_count}}</p>
 
 
-        <p>Posted reviews on the following books:</p>
-        {% for review in reviews %}
-        <p>{{review.reviewedbook.title}}</p>
-        {% endfor %}
-
+                <h4>❋ Posted reviews on the following books:</h4>
+                {% for review in reviews %}
+                <p><a href="/books/{{review.reviewedbook.id}}">{{review.reviewedbook.title}}</a></p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </body>
+</body>
+
 </html>

@@ -1,0 +1,35 @@
+.background{
+    margin-top: 5em;
+    background: white url("images/books.png") no-repeat;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0.3em;
+}
+
+.bg {
+    /* The image used */
+    background: url("images/whole.png");
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.review{
+    border: 0.1em solid blue;
+    padding: 0.3em;
+    margin: 0.3em;
+    border-radius: 0.5em;
+    background-color: white;
+}
+
+.main{
+    padding: 2em
+}
+
+.content{
+    padding: 0.5em;
+}

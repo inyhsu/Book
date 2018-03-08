@@ -74,7 +74,7 @@ def books_add(request):
     return render(request,'books_add.html',context)
 
 def add_book(request):
-    result = Book.objects.book_validator(request.POST,request.session['userid'])
+    result = Book.objects.book_validator(request.POST,request.session['userid'],request.FILES)
 
     if result[0] == False:
 
